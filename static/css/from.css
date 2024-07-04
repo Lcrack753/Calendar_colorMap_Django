@@ -1,0 +1,136 @@
+.form_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-content: center;
+}
+
+.form_wrapper label {
+    font-size: 1.05em;
+}
+
+.required {
+    font-weight: 600;
+}
+
+.form_wrapper input {
+    box-sizing: border-box !important;
+    height: 2rem !important;
+    width: 100% !important;
+    min-width: 100px;
+    border: none;
+    border-bottom: 3px solid var(--blue-light-transparent);
+    border-radius: 3px;
+    min-height: 25px;
+    outline: none;
+    padding: 5px;
+    padding-left: 5px;
+}
+
+.form_wrapper input:focus,
+.form_wrapper input:valid {
+    border-bottom: 3px solid var(--blue-dark);
+}
+
+.invalid {
+    border-bottom: 3px solid var(--red-dark) !important;
+}
+
+.form_wrapper input,
+.form_wrapper select {
+    background-color: hsl(0, 48%, 95%);
+}
+
+
+.form_wrapper input[type='date'] {
+    width: fit-content;
+    padding-left: 15px;
+}
+
+
+.custom_select select {
+    padding: 8px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+}
+
+.form_row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form_row .form_wrapper {
+    flex: 1;
+}
+
+.form_wrapper {
+    transition: transform 1s ease-in;
+}
+
+/* .form_wrapper:hover {
+    transform: translateY(-2px);
+} */
+
+
+.select_wrapper {
+    width: 100%;
+    position: relative !important;
+}
+
+
+.select_input:hover {
+    cursor: pointer;
+}
+
+.opt_wrapper {
+    position: absolute;
+    width: calc(100%);
+    max-height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    top: calc(100% + 10px);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(161, 186, 233);
+    border-radius: 5px;
+    z-index: 999;
+}
+
+.opt_wrapper>div {
+    display: flex;
+    align-items: center;
+    min-height: 20px;
+    height: 2rem;
+    padding-left: 10px;
+    padding-top: 5px;
+    text-overflow: clip;
+}
+
+.page_wrapper_inv {
+    background-color: none;
+    border: none;
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.opt_wrapper>div:hover {
+    background-color: rgb(101, 146, 230);
+    cursor: pointer;
+}

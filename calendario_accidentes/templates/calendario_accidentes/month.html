@@ -1,12 +1,11 @@
 <div class="calendar">
-    {% for month in cal %}
-    <!-- flex column -->
+    <!-- grid -->
     <div class="month">
-        <div class="month_name">{{month.month_name}}</div>
+        <div class="month_name">Mes
+        </div>
 
-        <!-- grid -->
         <div class="month_days">
-            {% for day in month.days %}
+            {% for day in cal %}
             <div href="#" class="day tooltip" {% if day.background %}
                 style="background-color: rgb({{day.background.0}},{{day.background.1}},{{day.background.2}});border-radius: 0"
                 {%endif%}>
@@ -18,5 +17,4 @@
             {% endfor %}
         </div>
     </div>
-    {% endfor %}
 </div>

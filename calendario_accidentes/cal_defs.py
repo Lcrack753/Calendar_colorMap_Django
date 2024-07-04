@@ -103,14 +103,14 @@ def cal_color(stamp: chr = 'y', color1 =  (150, 229, 242), color2 = (16, 40, 158
                 continue
             else:
                 cal[_]['background'] = gradiente[count[str(day['date'])] - 1]
-                cal[_]['percentage'] = f"{100 * count[str(day['date'])] / count.total() :.2f}"
+                cal[_]['percentage'] = f"{100 * count[str(day['date'])] / count.total() :.2f}%"
     elif stamp == 'm':
         for _, day in enumerate(cal):
             if count[str(day['date'])] == 0:
                 continue
             else:
                 cal[_]['background'] = gradiente[count[str(day['date'])] - 1]
-                cal[_]['percentage'] = f"{100 * count[str(day['date'])] / count.total() :.2f}"
+                cal[_]['percentage'] = f"{100 * count[str(day['date'])] / count.total() :.2f}%"
     else:
         for idx, month in enumerate(cal):
             for _, day in enumerate(month['days']):
@@ -118,7 +118,7 @@ def cal_color(stamp: chr = 'y', color1 =  (150, 229, 242), color2 = (16, 40, 158
                     continue
                 else:
                     cal[idx]['days'][_]['background'] = gradiente[count[f"{idx+1}-{day['date']}"] - 1]
-                    cal[idx]['days'][_]['background'] = f"{100 * count[str(day['date'])] / count.total():.2f}"
+                    cal[idx]['days'][_]['percentage'] = f"{100 * count[f"{idx+1}-{day['date']}"] / count.total():.2f}%"
     return cal
 
 if __name__ == "__main__":

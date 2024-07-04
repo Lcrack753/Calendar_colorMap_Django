@@ -1,5 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --blue-dark: rgb(26, 39, 81);
+    --blue-light: rgb(131, 167, 212);
+    --blue-light-transparent: rgba(84, 120, 164, 0.5);
+    --white: rgb(255, 255, 255);
+    --disable: rgba(132, 162, 199, 0.3);
+    --red-dark: rgb(161, 35, 35);
+    --grey: rgb(197, 195, 198);
+}
+
 * {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+hr {
+    width: 100%;
 }
 
 .month_days a {
@@ -79,4 +97,110 @@
 
 .weekend {
     color: rgb(177, 176, 178);
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: fit-content;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 1px 8px;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* ROW-MENU */
+.row-menu-item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    height: 3rem;
+    border: none;
+    border-bottom: 3px solid var(--blue-light);
+    background-color: hsl(0, 48%, 95%);
+    transition: all 0.5s ease; /* Transición suave de 0.3 segundos */
+}
+
+.row-menu .row-menu-item:first-child {
+    border-top-left-radius: 6px !important;
+}
+
+.row-menu .row-menu-item:last-child {
+    border-top-right-radius: 6px !important;
+}
+
+.row-menu-item:hover,
+.row-menu-item.active {
+    background-image: linear-gradient(to top, var(--grey) 1%,transparent 40% ); /* Gradiente hacia arriba */
+    border-bottom: 3px solid var(--blue-dark);
+    cursor: pointer;
+    font-weight: 510;
+}
+
+.row-menu-item.active {
+    font-size: 1.2rem;
+    flex: 2;
+}
+
+.view {
+    display: none;
+    justify-content: center;
+    align-content: center;
+}
+
+.view.active {
+    display: flex !important;
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
 }
