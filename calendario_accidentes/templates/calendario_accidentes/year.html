@@ -1,0 +1,19 @@
+<div class="calendar">
+    {% for month in cal %}
+    <!-- flex column -->
+    <div class="month">
+        <div class="month_name">{{month.month_name}}</div>
+
+        <!-- grid -->
+        <div class="month_days">
+            {% for day in month.days %}
+            <a href="#" class="day" {% if day.background %}
+                style="background-color: rgb({{day.background.0}},{{day.background.1}},{{day.background.2}});border-radius: 0;color:black"
+                {%endif%}>
+                {{day.date}}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

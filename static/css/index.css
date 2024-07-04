@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+}
+
+.month_days a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.calendar {
+    width: 100%;
+    display: grid;
+    box-sizing: border-box;
+    font-size: 0.75rem;
+    /* grid-template-columns: repeat(4, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 40px;
+}
+
+.month {
+    max-width: 250px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.month_name {
+    font-size: 1.25rem;
+}
+
+.month_days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+}
+
+.day_names {
+    display: flex;
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: rgb(219, 218, 220);
+    font-weight: 500;
+}
+
+.day {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.month_days>.day:hover {
+    background-color: rgb(233, 231, 235);
+}
+
+.month_days>a {
+    text-decoration: none;
+}
+
+.no_month {
+    visibility: hidden;
+}
+
+.today {
+    background-color: var(--blue-light);
+    color: black;
+}
+
+.yes_month {
+    color: black;
+}
+
+.weekend {
+    color: rgb(177, 176, 178);
+}
