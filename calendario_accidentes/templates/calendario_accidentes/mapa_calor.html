@@ -7,25 +7,34 @@
 
 {% block content %}
 <div class="content">
-    <h1>Mapa de Calor</h1>
-    <div class="row row-menu" id="row-menu-detalle">
-        <div class="row-menu-item active" data="viewAnual">Anual</div>
-        <div class="row-menu-item" data="viewMen">Mensual</div>
-        <div class="row-menu-item" data="viewSem">Semanal</div>
+    <div class="calendarioView">
+        <div class="row row-menu" id="row-menu-calendario">
+            <div class="row-menu-item active" data="viewAnual">Mapa de Calor</div>
+            <div class="row-menu-item" data="viewMen">Calendario</div>
+        </div>
+        <div class="mapaCalorView">
+            <div class="row row-menu" id="row-menu-detalle">
+                <div class="row-menu-item active" data="viewAnual">Anual</div>
+                <div class="row-menu-item" data="viewMen">Mensual</div>
+                <div class="row-menu-item" data="viewSem">Semanal</div>
+            </div>
+            <div class="container">
+                <div class="row view active" id="viewAnual">
+                    {% include 'calendario_accidentes/year.html' with cal=year%}
+                </div>
+                <div class="row view" id="viewMen">
+                    {% include 'calendario_accidentes/month.html' with cal=month %}
+                </div>
+                <div class="row view" id="viewSem">
+                    {% include 'calendario_accidentes/week.html' with cal=week%}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="container">
-        <div class="row view active" id="viewAnual">
-            {% include 'calendario_accidentes/year.html' with cal=year%}
-        </div>
-        <div class="row view" id="viewMen">
-            {% include 'calendario_accidentes/month.html' with cal=month %}
-        </div>
-        <div class="row view" id="viewSem">
-            {% include 'calendario_accidentes/week.html' with cal=week%}
-        </div>
+    <div class="listaView">
+        asdsadasd
     </div>
 </div>
-
 {% endblock %}
 
 {% block js %}
