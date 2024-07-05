@@ -7,39 +7,100 @@
 
 {% block content %}
 <div class="content">
-    <div class="calendarioView">
-        <div class="row row-menu" id="row-menu-calendario">
-            <div class="row-menu-item active" data="viewAnual">Mapa de Calor</div>
-            <div class="row-menu-item" data="viewMen">Calendario</div>
-        </div>
-        <div class="mapaCalorView">
-            <div class="row row-menu" id="row-menu-detalle">
-                <div class="row-menu-item active" data="viewAnual">Anual</div>
-                <div class="row-menu-item" data="viewMen">Mensual</div>
-                <div class="row-menu-item" data="viewSem">Semanal</div>
+    <div class="wrapper-calendario">
+        <h1>Calendario</h1>
+        <div class="calendario-detalle">
+            <div class="select-row">
+                <div class="select-name"><strong>Modo</strong></div>
+                <div class="select-input">
+                    <div class="select-selected" onclick="showOptionsModo(true)">Todos</div>
+                    <div class="select-list" id="list-modo">
+                        <p class="opt selected">Todos</p>
+                        <p class="opt">DNISAU</p>
+                        <p class="opt">DNISAU</p>
+                        <p class="opt">DNISAU</p>
+                        <p class=" opt">DNISAU</p>
+                    </div>
+                </div>
             </div>
-            <div class="container">
-                <div class="row view active" id="viewAnual">
-                    {% include 'calendario_accidentes/year.html' with cal=year%}
-                </div>
-                <div class="row view" id="viewMen">
-                    {% include 'calendario_accidentes/month.html' with cal=month %}
-                </div>
-                <div class="row view" id="viewSem">
-                    {% include 'calendario_accidentes/week.html' with cal=week%}
-                </div>
+            <div class="small-menu">
+                <div class="small-menu-item selected" data="all" onclick="redirigirConParametros('year','false')">Todos
+                    los años</div>
+                <div class="small-menu-item" data="filter" onclick="redirigirConParametros('year','true')">Filtrar por
+                    año</div>
             </div>
         </div>
     </div>
-    <div class="listaView">
-        asdsadasd
+    <div class=" wrapper-lista">
+        <h1>Expedientes</h1>
+        <div class="lista-detalle">
+            <div class="lista-modo">
+                <h3>DNISAE</h3>
+                <p>EX-2024-8546565</p>
+                <p>EX-2024-8546565</p>
+                <p>EX-2024-8546565</p>
+                <p>EX-2024-8546565</p>
+            </div>
+            <div class="lista-modo">
+                <h3>DNISAE</h3>
+                <p>EX-2024-8546565</p>
+                <p>EX-2024-8546565</p>
+            </div>
+            <div class="lista-modo">
+                <h3>DNISAE</h3>
+                <p>EX-2024-8546565</p>
+                <p>EX-2024-8546565</p>
+                <p>EX-2024-8546565</p>
+            </div>
+            <div class="lista-modo">
+                <h3>DNISAE</h3>
+                <p>EX-2024-8546565</p>
+            </div>
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
 
-{% block js %}
-<script src="{% static 'js/row_menu.js' %}"></script>
-<script>
-    displayViewsbyMenu('row-menu-detalle');
-</script>
-{% endblock %}
+    {% block js %}
+    <script src="{% static 'js/row_menu.js' %}"></script>
+    <script>
+        let showOptionsModo = function (show) {
+            let list_modo = document.getElementById('list-modo');
+
+            if (show) {
+                list_modo.style.visibility = 'visible'; // Mostrar la lista
+                document.addEventListener('click', closeOptionsModoOutside);
+            } else {
+                list_modo.style.visibility = 'hidden'; // Ocultar la lista
+                document.removeEventListener('click', closeOptionsModoOutside);
+            }
+        };
+
+        let closeOptionsModoOutside = function (event) {
+            let list_modo = document.getElementById('list-modo');
+            let target = event.target;
+
+            // Verificar si el clic ocurrió dentro de la lista o en el botón de modo
+            if (!list_modo.contains(target) && !target.classList.contains('select-selected')) {
+                list_modo.style.visibility = 'hidden'; // Ocultar la lista
+                document.removeEventListener('click', closeOptionsModoOutside);
+            }
+        };
+
+        let modo_opt = document.getElementsByClassName('opt');
+        Array.from(modo_opt).forEach(element => {
+            element.addEventListener('click', function () {
+                window.location.href = window.location.pathname + '?modo=' + element.textContent;
+            });
+        });
+
+        function redirigirConParametros(parametro, valor) {
+            var url = window.location.href;
+            var urlObj = new URL(url);
+            urlObj.searchParams.set(parametro, valor);
+            window.location.href = urlObj.href;
+        }
+
+
+        // LEER URL AL PRICNIPIO Y CAMBIAR CCS
+    </script>
+    {% endblock %}

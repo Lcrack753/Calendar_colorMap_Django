@@ -22,10 +22,10 @@ def index(request):
     # JSON
     json = request_json()
 
-    # Parametros y filtro
-    modo = request.GET.get('modo')
-    if modo != None:
-        json = [d for d in json if d['modo'] == modo]
+    # # Parametros y filtro
+    # modo = request.GET.get('modo')
+    # if modo != None:
+    #     json = [d for d in json if d['modo'] == modo]
 
     stamp = request.GET.get('stamp') if request.GET.get('stamp') in ['y','m','w'] else 'y'
 
