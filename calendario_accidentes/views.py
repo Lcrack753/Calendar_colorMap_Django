@@ -18,7 +18,13 @@ def request_json():
 
 # Create your views here.
 def index(request):
+    MODOS = ['DNISAE','DNISAU','DNEyMA','DNISF']
+
     context = {}
+    context['year'] = request.GET.get('year') or '2024'
+    context['modos'] = MODOS
+    modo = request.GET.get('modo')
+    print(modo)
     # JSON
     json = request_json()
 
@@ -31,8 +37,7 @@ def index(request):
 
     # Dates List
     dates = [datetime.strptime(_['fecha'],r'%Y-%m-%d').date() for _ in json]
-
-    context['year'] = cal_defs.cal_color(stamp='y', dates=dates)
+    context['cal_year'] = cal_defs.cal_color(stamp='y', dates=dates)
     context['month'] = cal_defs.cal_color(stamp='m', dates=dates)
     context['week'] = cal_defs.cal_color(stamp='w', dates=dates)
 

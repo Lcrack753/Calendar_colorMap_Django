@@ -3,7 +3,7 @@
 /* https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8 */
 :root {
     --o1: #CAF0F8;
-    --o2: #90E0EF;
+    --o2: #a5c5cc;
     --o3: #00B4D8;
     --o4: #0077B6;
     --o5: #03045E;
@@ -189,11 +189,13 @@ hr {
 
 .view.active {
     display: flex !important;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .content {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
     /* flex-wrap: wrap; */
@@ -227,7 +229,14 @@ hr {
 }
 
 .lista-modo p {
-    margin-left: 10px;
+    padding: 6px;
+    vertical-align: middle;
+}
+
+
+.lista-modo p:hover {
+    background-color: var(--o2);
+    cursor: pointer;
 }
 
 .lista-modo * {
@@ -237,6 +246,9 @@ hr {
 .calendario-detalle {
     margin: 5px;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .select-row {
@@ -278,10 +290,11 @@ hr {
     flex-direction: column;
     border-radius: 0 0 7px 7px;
     visibility: hidden;
+    z-index: 99;
 }
 
 .select-list p {
-    padding: 10px 0 10px 0 ;
+    padding: 10px 0 10px 10px ;
 }
 
 .select-list p:hover {
@@ -315,16 +328,99 @@ p.selected {
     flex: 1;
     border-bottom: solid var(--o3) 3px;
     cursor: pointer;
+    transition: all 0.5s;
 }
+
+.small-menu-item.active {
+    flex: 2;
+}
+
 
 .small-menu-item:hover {
     border-bottom: solid var(--o5) 3px;
     background-color: var(--o1);
 }
 
-.small-menu-item.selected {
+.small-menu-item.active {
     flex: 2;
     border-bottom: solid var(--o5) 3px;
+}
+
+
+.view-display {
+    display: flex;
+    flex-direction: column;
+}
+
+.year-select {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.year-select * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--o1);
+    border: var(--o5) solid 1px;
+    height: 100%;
+}
+
+.year-select .center-row {
+    flex: 1;
+    font-weight: bold; /* Para negrita */
+    font-style: italic; /* Para cursiva (italica) */
+    border-left: none;
+    border-right: none;
+}
+
+.year-select .row-input {
+    width: 50px;
+}
+
+.year-select .row-input:hover {
+    background-color: var(--o2);
+    cursor: pointer;
+}
+
+.year-select .row-input:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.year-select .row-input:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+
+.cal-grid {
+    flex: 1;
+    background-color: #0077B6;
+    display: grid;
+    grid-template-areas:
+        'cal-year cal-year'
+        'cal-month cal-week';
+    grid-gap: 50px 10px; /* Añadido para separar las celdas del grid */
+    align-items: center;
+
+}
+
+.cal-year {
+    grid-area: cal-year; /* Sin comillas */
+    width: 100%;
+}
+
+.cal-month {
+    grid-area: cal-month; /* Sin comillas */
+}
+
+.cal-week {
+    grid-area: cal-week; /* Sin comillas */
 }
 
 @media (max-width: 1200px) {

@@ -13,21 +13,35 @@
             <div class="select-row">
                 <div class="select-name"><strong>Modo</strong></div>
                 <div class="select-input">
-                    <div class="select-selected" onclick="showOptionsModo(true)">Todos</div>
+                    <div class="select-selected" id="input-modo" onclick="showOptionsModo(true)">Todos</div>
                     <div class="select-list" id="list-modo">
                         <p class="opt selected">Todos</p>
-                        <p class="opt">DNISAU</p>
-                        <p class="opt">DNISAU</p>
-                        <p class="opt">DNISAU</p>
-                        <p class=" opt">DNISAU</p>
+                        {% for modo in modos %}
+                        <p class="opt">{{modo}}</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            <div class="small-menu">
-                <div class="small-menu-item selected" data="all" onclick="redirigirConParametros('year','false')">Todos
-                    los años</div>
-                <div class="small-menu-item" data="filter" onclick="redirigirConParametros('year','true')">Filtrar por
+            <div class="small-menu" id="year-menu">
+                <div class="small-menu-item active" data="filter">Filtrar por
                     año</div>
+                <div class="small-menu-item" data="all">Todos
+                    los años</div>
+            </div>
+            <div class="view active" id="filter">
+                <div class="year-select">
+                    <div class="row-input" onclick="redirigirConParametros('year',{{year|add:'-1'}})"> &lt; </div>
+                    <div class="center-row">{{year}}</div>
+                    <div class="row-input" onclick="redirigirConParametros('year',{{year|add:'1'}})"> &gt; </div>
+                </div>
+                <div class="cal-grid">
+                    <div class="cal-year">{% include 'calendario_accidentes/year.html' with cal=cal_year %}</div>
+                    <div class="cal-month">{% include 'calendario_accidentes/month.html' with cal=month %}</div>
+                    <div class="cal-week">{% include 'calendario_accidentes/week.html' with cal=week %}</div>
+                </div>
+            </div>
+            <div class="view" id="all">
+                all
             </div>
         </div>
     </div>
@@ -58,49 +72,75 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
 
-    {% block js %}
-    <script src="{% static 'js/row_menu.js' %}"></script>
-    <script>
-        let showOptionsModo = function (show) {
-            let list_modo = document.getElementById('list-modo');
+{% block js %}
+<script src="{% static 'js/row_menu.js' %}"></script>
+<script>
+    displayViewsbyMenu('year-menu');
+    cambiar_modo();
 
-            if (show) {
-                list_modo.style.visibility = 'visible'; // Mostrar la lista
-                document.addEventListener('click', closeOptionsModoOutside);
-            } else {
-                list_modo.style.visibility = 'hidden'; // Ocultar la lista
-                document.removeEventListener('click', closeOptionsModoOutside);
-            }
-        };
+    let showOptionsModo = function (show) {
+        let list_modo = document.getElementById('list-modo');
 
-        let closeOptionsModoOutside = function (event) {
-            let list_modo = document.getElementById('list-modo');
-            let target = event.target;
+        if (show) {
+            list_modo.style.visibility = 'visible'; // Mostrar la lista
+            document.addEventListener('click', closeOptionsModoOutside);
+        } else {
+            list_modo.style.visibility = 'hidden'; // Ocultar la lista
+            document.removeEventListener('click', closeOptionsModoOutside);
+        }
+    };
 
-            // Verificar si el clic ocurrió dentro de la lista o en el botón de modo
-            if (!list_modo.contains(target) && !target.classList.contains('select-selected')) {
-                list_modo.style.visibility = 'hidden'; // Ocultar la lista
-                document.removeEventListener('click', closeOptionsModoOutside);
-            }
-        };
+    let closeOptionsModoOutside = function (event) {
+        let list_modo = document.getElementById('list-modo');
+        let target = event.target;
 
-        let modo_opt = document.getElementsByClassName('opt');
-        Array.from(modo_opt).forEach(element => {
-            element.addEventListener('click', function () {
-                window.location.href = window.location.pathname + '?modo=' + element.textContent;
-            });
+        // Verificar si el clic ocurrió dentro de la lista o en el botón de modo
+        if (!list_modo.contains(target) && !target.classList.contains('select-selected')) {
+            list_modo.style.visibility = 'hidden'; // Ocultar la lista
+            document.removeEventListener('click', closeOptionsModoOutside);
+        }
+    };
+
+    let modo_opt = document.getElementsByClassName('opt');
+    Array.from(modo_opt).forEach(element => {
+        element.addEventListener('click', function () {
+            redirigirConParametros('modo', element.textContent)
         });
+    });
 
-        function redirigirConParametros(parametro, valor) {
-            var url = window.location.href;
-            var urlObj = new URL(url);
-            urlObj.searchParams.set(parametro, valor);
-            window.location.href = urlObj.href;
+    function redirigirConParametros(parametro, valor) {
+        var url = window.location.href;
+        var urlObj = new URL(url);
+        urlObj.searchParams.set(parametro, valor);
+        window.location.href = urlObj.href;
+    }
+
+    // input modo js load
+    function cambiar_modo() {
+        // Obtener el parámetro 'modo' de la URL actual
+        const urlParams = new URLSearchParams(window.location.search);
+        const modo = urlParams.get('modo'); // 'modo' es el nombre del parámetro que deseas obtener
+        // Si se encontró el parámetro 'modo' en la URL
+        if (modo) {
+            let input_modo = document.getElementById('input-modo');
+            input_modo.textContent = modo
+
+        } else {
+            let input_modo = document.getElementById('input-modo');
+            input_modo.textContent = 'Todos'
         }
 
+        Array.from(document.getElementsByClassName('opt')).forEach(element => {
+            if (element.textContent == modo) {
+                element.classList.add('selected');
+            } else {
+                element.classList.remove('selected');
+            }
+        })
+    }
 
-        // LEER URL AL PRICNIPIO Y CAMBIAR CCS
-    </script>
-    {% endblock %}
+</script>
+{% endblock %}
