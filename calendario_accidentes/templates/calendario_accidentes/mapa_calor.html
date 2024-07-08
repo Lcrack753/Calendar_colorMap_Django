@@ -15,7 +15,7 @@
                 <div class="select-input">
                     <div class="select-selected" id="input-modo" onclick="showOptionsModo(true)">Todos</div>
                     <div class="select-list" id="list-modo">
-                        <p class="opt selected">Todos</p>
+                        <p class="opt">Todos</p>
                         {% for modo in modos %}
                         <p class="opt">{{modo}}</p>
                         {% endfor %}
@@ -23,10 +23,10 @@
                 </div>
             </div>
             <div class="small-menu" id="year-menu">
-                <div class="small-menu-item active" data="filter">Filtrar por
-                    año</div>
-                <div class="small-menu-item" data="all">Todos
-                    los años</div>
+                <div class="small-menu-item active" data="filter">
+                    Filtrar por año</div>
+                <div class="small-menu-item" data="all">
+                    Todos los años</div>
             </div>
             <div class="view active" id="filter">
                 <div class="year-select">
@@ -35,13 +35,29 @@
                     <div class="row-input" onclick="redirigirConParametros('year',{{year|add:'1'}})"> &gt; </div>
                 </div>
                 <div class="cal-grid">
-                    <div class="cal-year">{% include 'calendario_accidentes/year.html' with cal=cal_year %}</div>
-                    <div class="cal-month">{% include 'calendario_accidentes/month.html' with cal=month %}</div>
-                    <div class="cal-week">{% include 'calendario_accidentes/week.html' with cal=week %}</div>
+                    <div class="cal-year">
+                        {% include 'calendario_accidentes/year_formated.html' with cal=cal_year_filtered %}
+                    </div>
+                    <div class="cal-month">
+                        {% include 'calendario_accidentes/month.html' with cal=cal_month_filtered %}
+                    </div>
+                    <div class="cal-week">
+                        {% include 'calendario_accidentes/week.html' with cal=cal_week_filtered %}
+                    </div>
                 </div>
             </div>
             <div class="view" id="all">
-                all
+                <div class="cal-grid">
+                    <div class="cal-year">
+                        {% include 'calendario_accidentes/year.html' with cal=cal_year %}
+                    </div>
+                    <div class="cal-month">
+                        {% include 'calendario_accidentes/month.html' with cal=cal_month %}
+                    </div>
+                    <div class="cal-week">
+                        {% include 'calendario_accidentes/week.html' with cal=cal_week %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

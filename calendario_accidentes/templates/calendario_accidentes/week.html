@@ -15,7 +15,8 @@
                 <div class="day">Dom</div>
             </div>
             {% for day in cal %}
-            <div href="#" class="day tooltip" {% if day.background %}
+            <div href="#" class="day tooltip" large_date="{{day.large_date}}"
+                {% if day.background %}
                 style="background-color: rgb({{day.background.0}},{{day.background.1}},{{day.background.2}});border-radius: 0"
                 {%endif%}>
                 <span class="tooltiptext">

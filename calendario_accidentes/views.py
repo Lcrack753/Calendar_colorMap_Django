@@ -18,27 +18,33 @@ def request_json():
 
 # Create your views here.
 def index(request):
-    MODOS = ['DNISAE','DNISAU','DNEyMA','DNISF']
+    json = request_json()
+    MODOS = list(set([exp['modo'] for exp in json]))
 
     context = {}
-    context['year'] = request.GET.get('year') or '2024'
+    year = request.GET.get('year') or '2024'
+    context['year'] = year
     context['modos'] = MODOS
     modo = request.GET.get('modo')
     print(modo)
     # JSON
-    json = request_json()
 
-    # # Parametros y filtro
-    # modo = request.GET.get('modo')
-    # if modo != None:
-    #     json = [d for d in json if d['modo'] == modo]
 
-    stamp = request.GET.get('stamp') if request.GET.get('stamp') in ['y','m','w'] else 'y'
 
     # Dates List
+    
+    if modo and modo in MODOS:
+        json = [d for d in json if d['modo'] == modo]
     dates = [datetime.strptime(_['fecha'],r'%Y-%m-%d').date() for _ in json]
+    dates_filter = [day for day in dates if day.year == int(year)]
+
+
+    context['cal_year_filtered'] = cal_defs.cal_color(dates=dates_filter, formated_year=int(year))
+    context['cal_month_filtered'] = cal_defs.cal_color(stamp='m',dates=dates_filter)
+    context['cal_week_filtered'] = cal_defs.cal_color(stamp='w',dates=dates_filter)
     context['cal_year'] = cal_defs.cal_color(stamp='y', dates=dates)
-    context['month'] = cal_defs.cal_color(stamp='m', dates=dates)
-    context['week'] = cal_defs.cal_color(stamp='w', dates=dates)
+    context['cal_month'] = cal_defs.cal_color(stamp='m', dates=dates)
+    context['cal_week'] = cal_defs.cal_color(stamp='w', dates=dates)
+
 
     return render(request,'calendario_accidentes/mapa_calor.html', context)

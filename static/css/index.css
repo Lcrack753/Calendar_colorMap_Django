@@ -95,7 +95,7 @@ hr {
 }
 
 .weekend {
-    color: rgb(177, 176, 178);
+    color: black;
 }
 
 .tooltip {
@@ -231,12 +231,15 @@ hr {
 .lista-modo p {
     padding: 6px;
     vertical-align: middle;
+    border-radius: 5px;
+    transition: transform 0.2s ;
 }
 
 
 .lista-modo p:hover {
     background-color: var(--o2);
     cursor: pointer;
+    transform: scale(1.02);
 }
 
 .lista-modo * {
@@ -295,11 +298,14 @@ hr {
 
 .select-list p {
     padding: 10px 0 10px 10px ;
+    border-radius: 5px;
+    transition: transform 0.2s;
 }
 
 .select-list p:hover {
     background-color: var(--o2);
     cursor: pointer;
+    transform: scale(1.01);
 }
 
 p.selected {
@@ -430,7 +436,7 @@ p.selected {
     }
 
     .wrapper-calendario {
-        min-width: none;
+        min-width: 10px;
         flex: auto;
     }
 

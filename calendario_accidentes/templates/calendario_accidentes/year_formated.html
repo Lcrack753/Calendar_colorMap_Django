@@ -3,11 +3,19 @@
     <!-- flex column -->
     <div class="month">
         <div class="month_name">{{month.month_name}}</div>
-
+        <div class="day_names">
+            <div class="day">Lun</div>
+            <div class="day">Mar</div>
+            <div class="day">Mie</div>
+            <div class="day">Jue</div>
+            <div class="day">Vie</div>
+            <div class="day">Sab</div>
+            <div class="day">Dom</div>
+        </div>
         <!-- grid -->
         <div class="month_days">
             {% for day in month.days %}
-            <div href="#" class="day tooltip" large_date="{{day.large_date}}"
+            <div href="#" class="day tooltip {{day.class}}" large_date="{{day.large_date}}"
                 {% if day.background %}
                 style="background-color: rgb({{day.background.0}},{{day.background.1}},{{day.background.2}});border-radius: 0"
                 {%endif%}>
