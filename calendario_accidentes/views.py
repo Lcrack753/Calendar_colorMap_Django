@@ -32,7 +32,7 @@ def filter_expedientes_by_large_date(json_data, large_date):
                     'nro':exp['nro_expediente'],
                     'fecha': exp['fecha']
                 })
-    except ValueError:
+    except:
         try:
             large_date_obj = datetime.strptime(large_date, r'%m-%d')
             for exp in json_data:
@@ -46,7 +46,7 @@ def filter_expedientes_by_large_date(json_data, large_date):
                         'nro':exp['nro_expediente'],
                         'fecha': exp['fecha']
                     })
-        except ValueError:
+        except:
             return None  # Retorna None si no se puede parsear ninguna de las dos fechas
         
     return exp_list
@@ -77,12 +77,13 @@ def index(request):
     # Filtrado Expedientes por FECHA
     exp_list = []
     exp_date = filter_expedientes_by_large_date(json,large_date)
-    for modo in set([d['modo'] for d in exp_date]):
-        exp_list.append({
-            'modo': modo,
-            'expedientes': [d for d in exp_date if d.get('modo') == modo]
-        })
-    context['exp_list']= exp_list
+    if exp_date:
+        for modo in set([d['modo'] for d in exp_date]):
+            exp_list.append({
+                'modo': modo,
+                'expedientes': [d for d in exp_date if d.get('modo') == modo]
+            })
+        context['exp_list']= exp_list
 
     # Filtrado por año
     dates = [datetime.strptime(_['fecha'],r'%Y-%m-%d').date() for _ in json]
