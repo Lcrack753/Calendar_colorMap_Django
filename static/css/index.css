@@ -2,7 +2,7 @@
 
 /* https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8 */
 :root {
-    --o1: #CAF0F8;
+    --o1: #e5e5e5;
     --o2: #a5c5cc;
     --o3: #00B4D8;
     --o4: #0077B6;
@@ -96,6 +96,10 @@ hr {
 
 .weekend {
     color: black;
+}
+
+.day[large_date] {
+    cursor: pointer;
 }
 
 .tooltip {
@@ -204,7 +208,6 @@ hr {
 .wrapper-calendario {
     width: 100%;
     padding: 15px;
-    background-color: aqua;
     flex: 3;
 }
 
@@ -240,6 +243,20 @@ hr {
     background-color: var(--o2);
     cursor: pointer;
     transform: scale(1.02);
+}
+
+.lista-modo p::before {
+    content: "+";
+    margin-right: 5px; /* Añade un espacio entre el símbolo "+" y el texto del párrafo */
+}
+
+
+.lista-modo .green::before {
+    color: green;
+}
+  
+.lista-modo .red::before {
+    color: red;
 }
 
 .lista-modo * {
@@ -406,7 +423,6 @@ p.selected {
 
 .cal-grid {
     flex: 1;
-    background-color: #0077B6;
     display: grid;
     grid-template-areas:
         'cal-year cal-year'

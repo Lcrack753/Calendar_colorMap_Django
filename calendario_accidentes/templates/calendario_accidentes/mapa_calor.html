@@ -23,9 +23,9 @@
                 </div>
             </div>
             <div class="small-menu" id="year-menu">
-                <div class="small-menu-item active" data="filter">
+                <div class="small-menu-item active" data="filter" id="menu-item-filter">
                     Filtrar por año</div>
-                <div class="small-menu-item" data="all">
+                <div class="small-menu-item" data="all" id="menu-item-all">
                     Todos los años</div>
             </div>
             <div class="view active" id="filter">
@@ -64,28 +64,18 @@
     <div class=" wrapper-lista">
         <h1>Expedientes</h1>
         <div class="lista-detalle">
+            {% for modos in exp_list %}
             <div class="lista-modo">
-                <h3>DNISAE</h3>
-                <p>EX-2024-8546565</p>
-                <p>EX-2024-8546565</p>
-                <p>EX-2024-8546565</p>
-                <p>EX-2024-8546565</p>
+                <h3>{{modos.modo}}</h3>
+                {% for exp in modos.expedientes %}
+                {% if exp.estado == 'En Curso' %}
+                <p class="green" onclick="redirigir_so({{exp.id}})">{{exp.nro}}</p>
+                {% else %}
+                <p class="red" onclick="redirigir_so({{exp.id}})">{{exp.nro}}</p>
+                {% endif %}
+                {% endfor %}
             </div>
-            <div class="lista-modo">
-                <h3>DNISAE</h3>
-                <p>EX-2024-8546565</p>
-                <p>EX-2024-8546565</p>
-            </div>
-            <div class="lista-modo">
-                <h3>DNISAE</h3>
-                <p>EX-2024-8546565</p>
-                <p>EX-2024-8546565</p>
-                <p>EX-2024-8546565</p>
-            </div>
-            <div class="lista-modo">
-                <h3>DNISAE</h3>
-                <p>EX-2024-8546565</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -96,6 +86,7 @@
 <script>
     displayViewsbyMenu('year-menu');
     cambiar_modo();
+    read_active_view();
 
     let showOptionsModo = function (show) {
         let list_modo = document.getElementById('list-modo');
@@ -131,8 +122,26 @@
         var url = window.location.href;
         var urlObj = new URL(url);
         urlObj.searchParams.set(parametro, valor);
+
+        // para esta pagina
+        let view_filter = document.getElementById('filter');
+        if (view_filter.classList.contains('active')) {
+            urlObj.searchParams.set('filter', '1');
+        } else {
+            urlObj.searchParams.set('filter', '0');
+        }
         window.location.href = urlObj.href;
     }
+
+
+    let days = document.getElementsByClassName('day');
+    Array.from(days).forEach(element => {
+        if (element.hasAttribute('large_date')) {
+            element.addEventListener('click', function () {
+                redirigirConParametros('large_date',element.getAttribute('large_date'))
+            })
+        }
+    })
 
     // input modo js load
     function cambiar_modo() {
@@ -158,5 +167,33 @@
         })
     }
 
+    let redirigir_so = function (id) {
+        window.open('https://so.jst.gob.ar/informe/?id=' + id, '_blank');
+    }
+
+    function read_active_view () {
+        let urlObj = new URL(window.location.href);
+        let filter = urlObj.searchParams.get('filter'); // Obtener el parámetro 'filter' de la URL
+
+        // Obtener los elementos del menú y las vistas
+        let btnFilter = document.getElementById('menu-item-filter');
+        let btnAll = document.getElementById('menu-item-all');
+        let viewFilter = document.getElementById('filter');
+        let viewAll = document.getElementById('all');
+
+        // Remover la clase 'active' de todos los botones y vistas
+        btnFilter.classList.remove('active');
+        btnAll.classList.remove('active');
+        viewFilter.classList.remove('active');
+        viewAll.classList.remove('active');
+        if (filter == '1') {
+            btnFilter.classList.add('active');
+            viewFilter.classList.add('active');
+        } else {
+            btnAll.classList.add('active');
+            viewAll.classList.add('active');
+        }
+    }
+    
 </script>
 {% endblock %}

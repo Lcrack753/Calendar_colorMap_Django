@@ -102,7 +102,7 @@ def cal_generic(stamp: chr = 'y'):
     elif stamp == 'm':
         for day in range(1,32):
             cal.append(
-                        {'date':day, 'background':None, 'large_date': f'XXXX-XX-{day}'}              
+                        {'date':day, 'background':None}              
             )
     else:
         for month in range(1,13):
@@ -149,7 +149,7 @@ def cal_color(stamp: chr = 'y', color1 =  (150, 229, 242), color2 = (16, 40, 158
         for idx, month in enumerate(cal):
             for _, day in enumerate(month['days']):
                 cal[idx]['days'][_]['percentage'] = f"{0:.2f}%"
-                cal[idx]['days'][_]['large_date'] = f'XXXX-{idx + 1}-{day['date']}'
+                cal[idx]['days'][_]['large_date'] = f'{idx + 1}-{day['date']}'
 
                 if formated_year:
                     cal[idx]['days'][_]['large_date'] = f'{formated_year}-{idx + 1}-{day['date']}'
