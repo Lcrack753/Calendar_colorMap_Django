@@ -2,7 +2,7 @@
 
 /* https://coolors.co/palette/03045e-0077b6-00b4d8-90e0ef-caf0f8 */
 :root {
-    --o1: #e5e5e5;
+    --o1: #f1f1f1;;
     --o2: #a5c5cc;
     --o3: #00B4D8;
     --o4: #0077B6;
@@ -427,14 +427,22 @@ p.selected {
     grid-template-areas:
         'cal-year cal-year'
         'cal-month cal-week';
-    grid-gap: 50px 10px; /* Añadido para separar las celdas del grid */
+    grid-gap: 10px 10px; /* Añadido para separar las celdas del grid */
     align-items: center;
+}
 
+.cal-grid > * {
+    background-color: #f1f1f1;
+    align-self: stretch;
+    justify-self: center;
+    padding: 15px;
+    width: fit-content;
+    border-radius: 15px;
 }
 
 .cal-year {
     grid-area: cal-year; /* Sin comillas */
-    width: 100%;
+    width: 100% !important;
 }
 
 .cal-month {
